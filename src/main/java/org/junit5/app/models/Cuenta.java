@@ -12,6 +12,7 @@ public class Cuenta implements Serializable {
 
     private String persona;
     private BigDecimal sueldo;
+    private Banco banco;
 
     public Cuenta(String persona, BigDecimal sueldo) {
         this.persona = persona;
@@ -34,9 +35,18 @@ public class Cuenta implements Serializable {
         this.sueldo = sueldo;
     }
 
+    public Banco getBanco() {
+        return banco;
+    }
+
+    public void setBanco(Banco banco) {
+        this.banco = banco;
+    }
+
     public void debito(BigDecimal monto) {
-        this.sueldo = this.sueldo.subtract(monto);
+        BigDecimal nuevoSueldo = this.sueldo.subtract(monto);
         if (this.sueldo.compareTo(BigDecimal.ZERO) < 0) throw new DineroInsuficienteException("Dinero Insuficiente");
+        this.sueldo = nuevoSueldo;
     }
 
     public void credito(BigDecimal monto) {
