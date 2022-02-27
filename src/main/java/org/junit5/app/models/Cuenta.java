@@ -1,5 +1,7 @@
 package org.junit5.app.models;
 
+import org.junit5.app.exceptions.DineroInsuficienteException;
+
 import java.io.Serializable;
 import java.math.BigDecimal;
 
@@ -34,6 +36,7 @@ public class Cuenta implements Serializable {
 
     public void debito(BigDecimal monto) {
         this.sueldo = this.sueldo.subtract(monto);
+        if (this.sueldo.compareTo(BigDecimal.ZERO) < 0) throw new DineroInsuficienteException("Dinero Insuficiente");
     }
 
     public void credito(BigDecimal monto) {
