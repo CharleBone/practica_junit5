@@ -100,4 +100,36 @@ class CuentaTest {
                 .anyMatch(cuenta -> cuenta.getPersona().equals("Ale")));
     }
 
+    @Test
+    void testRelacionCuentasAseertAll(){
+        Banco banco = new Banco();
+        banco.setNombre("Galicia");
+        Cuenta cuentaOrigen = new Cuenta("Ale", new BigDecimal("1500"));
+        Cuenta cuentaDestino = new Cuenta("Bob", new BigDecimal("2000"));
+        banco.addCuenta(cuentaOrigen);
+        banco.addCuenta(cuentaDestino);
+
+        assertAll(() -> assertNotNull(banco.getCuentas()),
+                () -> assertTrue(banco.getCuentas().size() == 2),
+                () -> assertEquals("Galicia", cuentaOrigen.getBanco().getNombre()),
+                () -> {
+                    assertEquals("Ale", banco.getCuentas().stream().
+                            filter(cuenta -> cuenta.getPersona().equals("Ale"))
+                            .findFirst()
+                            .get()
+                            .getPersona()
+                    );
+                },
+                () -> {
+                    assertTrue(banco.getCuentas().stream()
+                            .filter(cuenta -> cuenta.getPersona().equals("Ale"))
+                            .findFirst()
+                            .isPresent());
+                },
+                () -> {
+                    assertTrue(banco.getCuentas().stream()
+                            .anyMatch(cuenta -> cuenta.getPersona().equals("Ale")));
+                });
+    }
+
 }
