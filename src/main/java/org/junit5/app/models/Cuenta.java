@@ -33,11 +33,11 @@ public class Cuenta implements Serializable {
     }
 
     public void debito(BigDecimal monto) {
-        this.sueldo.subtract(monto);
+        this.sueldo = this.sueldo.subtract(monto);
     }
 
     public void credito(BigDecimal monto) {
-        this.sueldo.add(monto);
+        this.sueldo = this.sueldo.add(monto);
     }
 
     @Override

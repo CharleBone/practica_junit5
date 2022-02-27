@@ -33,6 +33,20 @@ class CuentaTest {
 
     }
 
+    @Test
+    void testDebitoCuenta() {
+        Cuenta cuenta = new Cuenta("ANDRU", new BigDecimal("123123.2323"));
+        cuenta.debito(new BigDecimal(100));
+        assertNotNull(cuenta.getSueldo());
+        assertEquals("123023.2323", cuenta.getSueldo().toPlainString());
+    }
 
+    @Test
+    void testCreditoCuenta() {
+        Cuenta cuenta = new Cuenta("ANDRU", new BigDecimal("123123.2323"));
+        cuenta.credito(new BigDecimal(100));
+        assertNotNull(cuenta.getSueldo());
+        assertEquals("123223.2323", cuenta.getSueldo().toPlainString());
+    }
 
 }
